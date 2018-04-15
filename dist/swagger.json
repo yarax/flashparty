@@ -1,0 +1,142 @@
+{
+	"basePath": "/v1",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"FlashParty": {
+			"properties": {
+				"location": {
+					"type": "array",
+					"items": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"participants": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			},
+			"required": [
+				"location",
+				"participants"
+			],
+			"type": "object"
+		},
+		"SpotRequest": {
+			"properties": {
+				"lat": {
+					"type": "number",
+					"format": "double"
+				},
+				"lon": {
+					"type": "number",
+					"format": "double"
+				},
+				"ts": {
+					"type": "number",
+					"format": "double"
+				},
+				"userId": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"lat",
+				"lon",
+				"ts",
+				"userId"
+			],
+			"type": "object"
+		}
+	},
+	"info": {
+		"title": "flash-party",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		}
+	},
+	"paths": {
+		"/party/{coordinates}": {
+			"get": {
+				"operationId": "GetParty",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/FlashParty"
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "coordinates",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/spots": {
+			"post": {
+				"operationId": "CreateSpot",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "requestBody",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/SpotRequest"
+						}
+					}
+				]
+			}
+		},
+		"/spots/{spotId}": {
+			"delete": {
+				"operationId": "DeleteSpot",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "spotId",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {},
+	"host": "localhost:3000"
+}
